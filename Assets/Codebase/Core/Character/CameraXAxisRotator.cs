@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Codebase
+namespace Codebase.Core.Character
 {
-    public class CameraController : MonoBehaviour
+    public class CameraXAxisRotator : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
         private ICameraTarget _cameraTarget;

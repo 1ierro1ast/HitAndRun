@@ -1,7 +1,7 @@
 using Mirror;
 using UnityEngine;
 
-namespace Codebase
+namespace Codebase.Core.Character
 {
     [RequireComponent(typeof(CharacterController))]
     public class CharacterMover : NetworkBehaviour, ICameraTarget

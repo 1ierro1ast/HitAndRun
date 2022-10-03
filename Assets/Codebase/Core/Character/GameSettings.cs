@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Codebase
+namespace Codebase.Core.Character
 {
     [CreateAssetMenu(fileName = "GameSettings", menuName = "Create game settings", order = 51)]
     public class GameSettings : ScriptableObject

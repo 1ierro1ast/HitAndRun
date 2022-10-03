@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3621033304900880919}
   - component: {fileID: 5818545796182741131}
   - component: {fileID: 5555850642886585705}
+  - component: {fileID: 5837114378022215861}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -125,6 +126,20 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &5837114378022215861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3621033304900880917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54bd57b6e33e4ab181487e543a5c5a31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterController: {fileID: 3621033304900880920}
+  _gameSettings: {fileID: 11400000, guid: df3e915deead0054daeb1ddf624d6484, type: 2}
 --- !u!1 &3621033305223694203
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,5 +317,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4383b24a8dee4e17bf74c1f9ce511d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterMover: {fileID: 3621033304900880919}
   _camera: {fileID: 3621033305389920675}
