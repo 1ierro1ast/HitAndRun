@@ -1,4 +1,5 @@
 ﻿using Codebase.Infrastructure.Services;
+using Codebase.Infrastructure.Services.Abilities;
 using Codebase.Infrastructure.Services.AssetManagement;
 using Codebase.Infrastructure.Services.Factories;
 using Codebase.Infrastructure.Services.SaveLoad;
@@ -45,6 +46,13 @@ namespace Codebase.Infrastructure.GameFlow.States
 
             RegisterEventBus();
             RegisterUiFactory();
+            RegisterShiftImpulseService();
+        }
+
+        private void RegisterShiftImpulseService()
+        {
+            _services.RegisterSingle<IShiftImpulseService>(new ShiftImpulseService(
+                _services.Single<IAssetProvider>(), _coroutineRunner));
         }
 
         private void RegisterAssetProvider()
