@@ -1,6 +1,7 @@
 ﻿using System;
 using Codebase.Infrastructure.GameFlow;
 using Codebase.Infrastructure.Services;
+using Codebase.Infrastructure.Services.NameSystem;
 using Mirror;
 using TMPro;
 using UnityEngine;
@@ -17,20 +18,25 @@ namespace Codebase.Core.UI.Popups
         [SerializeField] private TMP_InputField _serverAddress;
         
         private NetworkManager _networkManager;
+        private INameService _nameService;
 
         protected override void OnInitialization()
         {
             base.OnInitialization();
+            _nameService = AllServices.Container.Single<INameService>();
             OpenPopup();
             _createRoomButton?.onClick.AddListener(OnCreateRoomButtonClick);
             _connectToRoomButton?.onClick.AddListener(OnConnectToRoomButtonClick);
             _serverAddress?.onValueChanged.AddListener(OnServerAddressValueChanged);
             _nameField?.onValueChanged.AddListener(OnNameValueChanged);
+            
+            _nameField.text = _nameService.PlayerName;
+            _nameField.characterLimit = _nameService.MaxPlayerNameLength;
         }
         
         private void OnNameValueChanged(string name)
         {
-            
+            _nameService.SetPlayerName(name);
         }
 
         private void OnServerAddressValueChanged(string address)

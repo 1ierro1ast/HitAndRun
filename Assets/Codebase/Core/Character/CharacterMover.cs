@@ -11,10 +11,10 @@ namespace Codebase.Core.Character
     [RequireComponent(typeof(CharacterController))]
     public class CharacterMover : NetworkBehaviour, ICameraTarget
     {
+        private readonly bool _canMove = true;
         private CharacterController _characterController;
         private Vector3 _moveDirection = Vector3.zero;
-        private float _rotationX = 0;
-        private bool _canMove = true;
+        private float _rotationX;
         private Vector3 _currentForward;
         private Vector3 _currentRight;
         private float _currentSpeedX;
@@ -45,8 +45,9 @@ namespace Codebase.Core.Character
         {
             _characterController.enabled = false;
             var spawnPoint = _spawnPointsStorage.GetSpawnPoint();
-            transform.position = spawnPoint.position;
-            transform.rotation = spawnPoint.rotation;
+            var t = transform;
+            t.position = spawnPoint.position;
+            t.rotation = spawnPoint.rotation;
             _characterController.enabled = true;
         }
 
@@ -114,7 +115,7 @@ namespace Codebase.Core.Character
 
         private void ApplyMovements()
         {
-            _characterController.Move(_moveDirection * Time.deltaTime);
+            if (_characterController.enabled) _characterController.Move(_moveDirection * Time.deltaTime);
         }
 
         private void CalculateGravity()

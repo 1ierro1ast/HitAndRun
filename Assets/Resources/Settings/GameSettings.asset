@@ -49,3 +49,9 @@ MonoBehaviour:
   _tagSettings:
     _taggedColor: {r: 0, g: 0.098634005, b: 1, a: 1}
     _taggedTime: 3
+  _nameSettings:
+    _maxPlayerNameLength: 14
+    _defaultName: Player
+  _gameplaySettings:
+    _goalScore: 3
+    _matchCooldown: 5

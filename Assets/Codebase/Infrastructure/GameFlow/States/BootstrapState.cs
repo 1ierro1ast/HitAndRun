@@ -3,6 +3,7 @@ using Codebase.Infrastructure.Services.Abilities;
 using Codebase.Infrastructure.Services.AssetManagement;
 using Codebase.Infrastructure.Services.Factories;
 using Codebase.Infrastructure.Services.Input;
+using Codebase.Infrastructure.Services.NameSystem;
 using Codebase.Infrastructure.Services.SaveLoad;
 using Codebase.Infrastructure.Services.Score;
 using Codebase.Infrastructure.Services.Spawn;
@@ -48,6 +49,8 @@ namespace Codebase.Infrastructure.GameFlow.States
             RegisterSaveLoadService();
 
             RegisterScoreCounter();
+            RegisterNameService();
+            RegisterFinishGameHandler();
             RegisterSpawnPointsStorage();
             RegisterLevelFactory();
             RegisterEventBus();
@@ -55,6 +58,17 @@ namespace Codebase.Infrastructure.GameFlow.States
             RegisterNetworkFactory();
             RegisterUiFactory();
             RegisterShiftImpulseService();
+        }
+
+        private void RegisterNameService()
+        {
+            _services.RegisterSingle<INameService>(new NameService(_services.Single<IAssetProvider>()));
+        }
+
+        private void RegisterFinishGameHandler()
+        {
+            _services.RegisterSingle<IFinishGameHandler>(new FinishGameHandler(_services.Single<IScoreCounter>(),
+                _services.Single<IAssetProvider>(), _services.Single<INameService>()));
         }
 
         private void RegisterScoreCounter()

@@ -12,6 +12,7 @@ namespace Codebase.Core.UI
 
         private void Awake()
         {
+            SetText(0);
             _scoreCounter = AllServices.Container.Single<IScoreCounter>();
             _scoreCounter.ScoreUpdated += ScoreCounter_OnScoreUpdated;
         }
@@ -22,6 +23,11 @@ namespace Codebase.Core.UI
         }
 
         private void ScoreCounter_OnScoreUpdated(int score)
+        {
+            SetText(score);
+        }
+
+        private void SetText(int score)
         {
             _text.text = score.ToString();
         }

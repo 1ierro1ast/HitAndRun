@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Codebase.Core.UI;
 using Codebase.Infrastructure.GameFlow.States;
 using Codebase.Infrastructure.Services;
+using Codebase.Infrastructure.Services.AssetManagement;
 using Codebase.Infrastructure.Services.Factories;
 using Codebase.Infrastructure.StateMachine;
 
@@ -24,7 +25,8 @@ namespace Codebase.Infrastructure.GameFlow
 
                 [typeof(GameplayState)] = new GameplayState(this, loadingCurtain),
 
-                [typeof(MatchRestartState)] = new MatchRestartState()
+                [typeof(MatchRestartState)] = new MatchRestartState(this, loadingCurtain,
+                    container.Single<IAssetProvider>(), coroutineRunner)
             };
         }
     }

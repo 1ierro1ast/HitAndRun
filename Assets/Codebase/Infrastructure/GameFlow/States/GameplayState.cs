@@ -1,5 +1,7 @@
 ﻿using Codebase.Core.UI;
 using Codebase.Infrastructure.StateMachine;
+using Mirror;
+using UnityEngine;
 
 namespace Codebase.Infrastructure.GameFlow.States
 {
@@ -21,6 +23,13 @@ namespace Codebase.Infrastructure.GameFlow.States
         public void Enter()
         {
             _loadingCurtain.ClosePopup();
+            NetworkClient.RegisterHandler<MatchEnd>(OnMatchEnd);
+        }
+
+        private void OnMatchEnd(MatchEnd obj)
+        {
+            _gameStateMachine.Enter<MatchRestartState>();
         }
     }
+    
 }
