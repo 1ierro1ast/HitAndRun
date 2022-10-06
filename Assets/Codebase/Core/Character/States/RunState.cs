@@ -1,41 +1,39 @@
 ﻿using Codebase.Infrastructure.Services.Abilities;
+using Codebase.Infrastructure.Services.Input;
 using Codebase.Infrastructure.StateMachine;
 using UnityEngine;
 
 namespace Codebase.Core.Character.States
 {
-    public class RunState : IUpdatableState
+    public class RunState : IState, ISupportTagState
     {
         private readonly CharacterStateMachine _characterStateMachine;
-        private readonly Transform _transform;
-        private readonly CharacterController _characterController;
-        private readonly IShiftImpulseService _shiftImpulseService;
+        private readonly IInputService _inputService;
 
-        public RunState(CharacterStateMachine characterStateMachine, Transform transform,
-            CharacterController characterController, IShiftImpulseService shiftImpulseService)
+        public RunState(CharacterStateMachine characterStateMachine, IInputService inputService)
         {
             _characterStateMachine = characterStateMachine;
-            _transform = transform;
-            _characterController = characterController;
-            _shiftImpulseService = shiftImpulseService;
+            _inputService = inputService;
         }
 
         public void Exit()
         {
-            
+            _inputService.FireButtonEvent -= InputService_OnFireButtonEvent;
         }
 
         public void Enter()
         {
-            
+            _inputService.FireButtonEvent += InputService_OnFireButtonEvent;
         }
 
-        public void Update()
+        private void InputService_OnFireButtonEvent()
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                _shiftImpulseService.Shift(_characterController, _transform);
-            }
+            _characterStateMachine.Enter<ShiftImpulseState>();
+        }
+
+        public void Tag()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

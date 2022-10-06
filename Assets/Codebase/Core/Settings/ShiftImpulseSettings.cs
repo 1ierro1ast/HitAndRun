@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Codebase.Core.Character
+namespace Codebase.Core.Settings
 {
     [Serializable]
     public class ShiftImpulseSettings

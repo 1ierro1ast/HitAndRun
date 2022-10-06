@@ -1,3 +1,8 @@
+using Codebase.Core.Settings;
+using Codebase.Infrastructure.Services;
+using Codebase.Infrastructure.Services.AssetManagement;
+using Codebase.Infrastructure.Services.Input;
+using Codebase.Infrastructure.Services.Spawn;
 using Mirror;
 using UnityEngine;
 
@@ -6,13 +11,6 @@ namespace Codebase.Core.Character
     [RequireComponent(typeof(CharacterController))]
     public class CharacterMover : NetworkBehaviour, ICameraTarget
     {
-        [SerializeField] private float _walkingSpeed = 7.5f;
-        [SerializeField] private float _runningSpeed = 11.5f;
-        [SerializeField] private float _jumpSpeed = 8.0f;
-        [SerializeField] private float _gravity = 20.0f;
-        [SerializeField] private float _lookSpeed = 2.0f;
-        [SerializeField] private float _lookXLimit = 45.0f;
-
         private CharacterController _characterController;
         private Vector3 _moveDirection = Vector3.zero;
         private float _rotationX = 0;
@@ -24,13 +22,36 @@ namespace Codebase.Core.Character
         private float _movementDirectionY;
         private bool _isRunning;
 
+        private CharacterMovementsSettings _movementsSettings;
+
+        private IInputService _inputService;
+        private ISpawnPointsStorage _spawnPointsStorage;
+
         public bool IsLocalPlayer => isLocalPlayer;
         public bool CanMove => _canMove;
         public float RotationX => _rotationX;
 
+        private void Awake()
+        {
+            _inputService = AllServices.Container.Single<IInputService>();
+            _spawnPointsStorage = AllServices.Container.Single<ISpawnPointsStorage>();
+            _characterController = GetComponent<CharacterController>();
+            _movementsSettings = AllServices.Container.Single<IAssetProvider>()
+                .GetScriptableObject<GameSettings>(AssetPath.GameSettingsPath).CharacterMovementsSettings;
+            SetToSpawnPoint();
+        }
+
+        private void SetToSpawnPoint()
+        {
+            _characterController.enabled = false;
+            var spawnPoint = _spawnPointsStorage.GetSpawnPoint();
+            transform.position = spawnPoint.position;
+            transform.rotation = spawnPoint.rotation;
+            _characterController.enabled = true;
+        }
+
         private void Start()
         {
-            _characterController = GetComponent<CharacterController>();
             LockCursor();
         }
 
@@ -47,9 +68,9 @@ namespace Codebase.Core.Character
 
         private void CalculateMovement()
         {
-            _isRunning = Input.GetKey(KeyCode.LeftShift);
-            _currentSpeedX = _canMove ? GetSpeed() * Input.GetAxis("Vertical") : 0;
-            _currentSpeedY = _canMove ? GetSpeed() * Input.GetAxis("Horizontal") : 0;
+            _isRunning = _inputService.IsRunning;
+            _currentSpeedX = _canMove ? GetSpeed() * _inputService.VerticalSpeed : 0;
+            _currentSpeedY = _canMove ? GetSpeed() * _inputService.HorizontalSpeed : 0;
             _movementDirectionY = _moveDirection.y;
             _moveDirection = (_currentForward * _currentSpeedX) + (_currentRight * _currentSpeedY);
         }
@@ -57,21 +78,21 @@ namespace Codebase.Core.Character
         private void CalculateRotation()
         {
             if (!_canMove) return;
-            _rotationX += -Input.GetAxis("Mouse Y") * _lookSpeed;
-            _rotationX = Mathf.Clamp(_rotationX, -_lookXLimit, _lookXLimit);
-            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * _lookSpeed, 0);
+            _rotationX += -_inputService.MouseY * _movementsSettings.LookSpeed;
+            _rotationX = Mathf.Clamp(_rotationX, -_movementsSettings.LookXLimit, _movementsSettings.LookXLimit);
+            transform.rotation *= Quaternion.Euler(0, _inputService.MouseX * _movementsSettings.LookSpeed, 0);
         }
 
         private float GetSpeed()
         {
-            return (_isRunning ? _runningSpeed : _walkingSpeed);
+            return (_isRunning ? _movementsSettings.RunningSpeed : _movementsSettings.WalkingSpeed);
         }
 
         private void CalculateJump()
         {
-            if (Input.GetButton("Jump") && _canMove && _characterController.isGrounded)
+            if (_inputService.JumpButton && _canMove && _characterController.isGrounded)
             {
-                _moveDirection.y = _jumpSpeed;
+                _moveDirection.y = _movementsSettings.JumpSpeed;
             }
             else
             {
@@ -98,8 +119,8 @@ namespace Codebase.Core.Character
 
         private void CalculateGravity()
         {
-            if (_characterController.isGrounded) return; 
-            _moveDirection.y -= _gravity * Time.deltaTime;
+            if (_characterController.isGrounded) return;
+            _moveDirection.y -= _movementsSettings.Gravity * Time.deltaTime;
         }
     }
 }

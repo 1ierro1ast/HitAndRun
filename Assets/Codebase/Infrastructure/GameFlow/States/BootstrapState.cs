@@ -2,7 +2,10 @@
 using Codebase.Infrastructure.Services.Abilities;
 using Codebase.Infrastructure.Services.AssetManagement;
 using Codebase.Infrastructure.Services.Factories;
+using Codebase.Infrastructure.Services.Input;
 using Codebase.Infrastructure.Services.SaveLoad;
+using Codebase.Infrastructure.Services.Score;
+using Codebase.Infrastructure.Services.Spawn;
 using Codebase.Infrastructure.StateMachine;
 
 namespace Codebase.Infrastructure.GameFlow.States
@@ -44,9 +47,40 @@ namespace Codebase.Infrastructure.GameFlow.States
             RegisterAssetProvider();
             RegisterSaveLoadService();
 
+            RegisterScoreCounter();
+            RegisterSpawnPointsStorage();
+            RegisterLevelFactory();
             RegisterEventBus();
+            RegisterInputService();
+            RegisterNetworkFactory();
             RegisterUiFactory();
             RegisterShiftImpulseService();
+        }
+
+        private void RegisterScoreCounter()
+        {
+            _services.RegisterSingle<IScoreCounter>(new ScoreCounter());
+        }
+
+        private void RegisterLevelFactory()
+        {
+            _services.RegisterSingle<ILevelFactory>(new LevelFactory(_services.Single<IAssetProvider>(),
+                _services.Single<ISpawnPointsStorage>()));
+        }
+
+        private void RegisterSpawnPointsStorage()
+        {
+            _services.RegisterSingle<ISpawnPointsStorage>(new SpawnPointsStorage());
+        }
+
+        private void RegisterInputService()
+        {
+            _services.RegisterSingle<IInputService>(new InputService(_coroutineRunner));
+        }
+
+        private void RegisterNetworkFactory()
+        {
+            _services.RegisterSingle<INetworkFactory>(new NetworkFactory(_services.Single<IAssetProvider>()));
         }
 
         private void RegisterShiftImpulseService()
@@ -74,7 +108,7 @@ namespace Codebase.Infrastructure.GameFlow.States
         private void RegisterUiFactory()
         {
             _services.RegisterSingle<IUiFactory>(
-                new UiFactory(_services.Single<IAssetProvider>()));
+                new UiFactory(_services.Single<IAssetProvider>(), _services.Single<INetworkFactory>()));
         }
     }
 }

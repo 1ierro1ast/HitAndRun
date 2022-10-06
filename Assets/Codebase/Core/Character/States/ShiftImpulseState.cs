@@ -1,26 +1,39 @@
-﻿using Codebase.Infrastructure.StateMachine;
+﻿using Codebase.Infrastructure.Services.Abilities;
+using Codebase.Infrastructure.StateMachine;
+using UnityEngine;
 
 namespace Codebase.Core.Character.States
 {
-    public class ShiftImpulseState : IUpdatableState
+    public class ShiftImpulseState : IState, ISupportTagState
     {
         private readonly CharacterStateMachine _characterStateMachine;
+        private readonly Transform _transform;
+        private readonly CharacterController _characterController;
+        private readonly IShiftImpulseService _shiftImpulseService;
 
-        public ShiftImpulseState(CharacterStateMachine characterStateMachine)
+        public ShiftImpulseState(CharacterStateMachine characterStateMachine, Transform transform,
+            CharacterController characterController, IShiftImpulseService shiftImpulseService)
         {
             _characterStateMachine = characterStateMachine;
+            _transform = transform;
+            _characterController = characterController;
+            _shiftImpulseService = shiftImpulseService;
         }
         public void Exit()
         {
-            throw new System.NotImplementedException();
         }
 
         public void Enter()
         {
-            throw new System.NotImplementedException();
+            _shiftImpulseService.Shift(_characterController, _transform, OnImpulseFinishedCallback);
         }
 
-        public void Update()
+        private void OnImpulseFinishedCallback()
+        {
+            _characterStateMachine.Enter<RunState>();
+        }
+
+        public void Tag()
         {
             throw new System.NotImplementedException();
         }

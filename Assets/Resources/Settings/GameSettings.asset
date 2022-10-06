@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 125a94efc50c34941b1408c944187256, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
+  _characterMovementsSettings:
+    _walkingSpeed: 7.5
+    _runningSpeed: 11.5
+    _jumpSpeed: 8
+    _gravity: 20
+    _lookSpeed: 2
+    _lookXLimit: 30
   _shiftImpulseSettings:
-    _distance: 5
+    _distance: 10
     _shiftDuration: 0.5
     _curve:
       serializedVersion: 2
@@ -21,21 +28,24 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 2
-        outSlope: 2
-        tangentMode: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  _tagSettings:
+    _taggedColor: {r: 0, g: 0.098634005, b: 1, a: 1}
+    _taggedTime: 3

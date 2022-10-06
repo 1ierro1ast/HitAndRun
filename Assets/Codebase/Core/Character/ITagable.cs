@@ -2,6 +2,7 @@
 {
     public interface ITagable
     {
-        public void Tag();
+        bool CanTag { get; }
+        void Tag();
     }
 }

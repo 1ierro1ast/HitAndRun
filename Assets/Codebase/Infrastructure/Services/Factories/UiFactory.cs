@@ -7,13 +7,15 @@ namespace Codebase.Infrastructure.Services.Factories
     public class UiFactory : IUiFactory
     {
         private IAssetProvider _assetProvider;
+        private readonly INetworkFactory _networkFactory;
 
         private StartPopup _startPopup;
         private OverlayPopup _overlayPopup;
 
-        public UiFactory(IAssetProvider assetProvider)
+        public UiFactory(IAssetProvider assetProvider, INetworkFactory networkFactory)
         {
             _assetProvider = assetProvider;
+            _networkFactory = networkFactory;
             InitializePopups();
         }
 
@@ -28,6 +30,7 @@ namespace Codebase.Infrastructure.Services.Factories
             if (_startPopup == null)
             {
                 _startPopup = _assetProvider.Instantiate<StartPopup>(AssetPath.StartPopupPath);
+                _startPopup.SetNetworkManager(_networkFactory.GetNetworkManager());
                 Object.DontDestroyOnLoad(_startPopup);
             }
             return _startPopup;

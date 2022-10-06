@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Codebase.Core.Character.States;
 using Codebase.Infrastructure.Services;
 using Codebase.Infrastructure.Services.Abilities;
+using Codebase.Infrastructure.Services.Input;
 using Codebase.Infrastructure.StateMachine;
 using UnityEngine;
 
@@ -15,15 +16,16 @@ namespace Codebase.Core.Character
         {
             _states = new Dictionary<Type, IExitableState>()
             {
-                [typeof(RunState)] = new RunState(this, transform, characterController,
-                    container.Single<IShiftImpulseService>()),
-                [typeof(ShiftImpulseState)] = new ShiftImpulseState(this)
+                [typeof(RunState)] = new RunState(this, container.Single<IInputService>()),
+                
+                [typeof(ShiftImpulseState)] = new ShiftImpulseState(this, transform, characterController,
+                    container.Single<IShiftImpulseService>())
             };
         }
 
-        public void Update()
+        public bool CompareState<T>() where T : IState
         {
-            if (_activeState is IUpdatableState) (_activeState as IUpdatableState)?.Update();
+            return _activeState is T;
         }
     }
 }

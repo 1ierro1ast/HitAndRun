@@ -5,5 +5,7 @@
         public const string StartPopupPath = "UI/Popups/StartPopup";
         public const string OverlayPopupPath = "UI/Popups/OverlayPopup";
         public const string GameSettingsPath = "Settings/GameSettings";
+        public const string NetworkManagerPath = "NetworkManager";
+        public const string LevelPrefabPath = "LevelPrefab";
     }
 }
