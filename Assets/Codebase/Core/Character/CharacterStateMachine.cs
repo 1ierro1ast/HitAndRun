@@ -5,6 +5,7 @@ using Codebase.Infrastructure.Services;
 using Codebase.Infrastructure.Services.Abilities;
 using Codebase.Infrastructure.Services.Input;
 using Codebase.Infrastructure.StateMachine;
+using Mirror;
 using UnityEngine;
 
 namespace Codebase.Core.Character
@@ -12,11 +13,11 @@ namespace Codebase.Core.Character
     public class CharacterStateMachine : BaseStateMachine
     {
         public CharacterStateMachine(CharacterController characterController, Transform transform,
-            AllServices container)
+            AllServices container, NetworkBehaviour networkBehaviour)
         {
             _states = new Dictionary<Type, IExitableState>()
             {
-                [typeof(RunState)] = new RunState(this, container.Single<IInputService>()),
+                [typeof(RunState)] = new RunState(this, container.Single<IInputService>(), networkBehaviour),
                 
                 [typeof(ShiftImpulseState)] = new ShiftImpulseState(this, transform, characterController,
                     container.Single<IShiftImpulseService>())

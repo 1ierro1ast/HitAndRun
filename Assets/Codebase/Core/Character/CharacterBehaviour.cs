@@ -7,22 +7,26 @@ using UnityEngine;
 
 namespace Codebase.Core.Character
 {
+    [RequireComponent(typeof(NetworkCharacter))]
     public class CharacterBehaviour : MonoBehaviour, ITagable
     {
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private Renderer _view;
+        private NetworkCharacter _networkCharacter;
         private CharacterStateMachine _characterStateMachine;
         public bool CanTag => _characterStateMachine.CompareState<ShiftImpulseState>();
-        private bool _isTagged = false;
+        private bool _isTagged;
         private TagSettings _tagSettings;
         private Color _originalColor;
 
         private void Awake()
         {
+            _networkCharacter = GetComponent<NetworkCharacter>();
             _originalColor = _view.material.color;
             _tagSettings = AllServices.Container.Single<IAssetProvider>()
                 .GetScriptableObject<GameSettings>(AssetPath.GameSettingsPath).TagSettings;
-            _characterStateMachine = new CharacterStateMachine(_characterController, transform, AllServices.Container);
+            _characterStateMachine = new CharacterStateMachine(_characterController, transform, AllServices.Container,
+                _networkCharacter);
             _characterStateMachine.Enter<RunState>();
         }
 

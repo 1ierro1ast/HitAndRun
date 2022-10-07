@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 938592084080052248}
   - component: {fileID: 938592084080052230}
   - component: {fileID: 938592084080052249}
+  - component: {fileID: 4139022462628823890}
   m_Layer: 0
   m_Name: SpawnPoint (2)
   m_TagString: Untagged
@@ -299,6 +300,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4139022462628823890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938592084080052251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &938592084090698686
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,6 +459,7 @@ GameObject:
   - component: {fileID: 938592084299616983}
   - component: {fileID: 938592084299616981}
   - component: {fileID: 938592084299616980}
+  - component: {fileID: 8175019426336535282}
   m_Layer: 0
   m_Name: SpawnPoint (7)
   m_TagString: Untagged
@@ -516,6 +530,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8175019426336535282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938592084299616982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &938592084317414858
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,6 +781,7 @@ GameObject:
   - component: {fileID: 938592084672068575}
   - component: {fileID: 938592084672068573}
   - component: {fileID: 938592084672068572}
+  - component: {fileID: 8064987714752124474}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: Untagged
@@ -825,6 +852,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8064987714752124474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938592084672068574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &938592084766597293
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,6 +875,7 @@ GameObject:
   - component: {fileID: 938592084766597290}
   - component: {fileID: 938592084766597288}
   - component: {fileID: 938592084766597291}
+  - component: {fileID: 253568960122569354}
   m_Layer: 0
   m_Name: SpawnPoint (1)
   m_TagString: Untagged
@@ -906,6 +946,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &253568960122569354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938592084766597293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &938592084846227515
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,6 +1064,7 @@ GameObject:
   - component: {fileID: 938592084851871471}
   - component: {fileID: 938592084851871469}
   - component: {fileID: 938592084851871468}
+  - component: {fileID: 7251367365729077222}
   m_Layer: 0
   m_Name: SpawnPoint (4)
   m_TagString: Untagged
@@ -1082,6 +1135,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7251367365729077222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938592084851871470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &938592084926469299
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,6 +1349,7 @@ GameObject:
   - component: {fileID: 938592085003491585}
   - component: {fileID: 938592085003491599}
   - component: {fileID: 938592085003491598}
+  - component: {fileID: 2674695985264394422}
   m_Layer: 0
   m_Name: SpawnPoint (5)
   m_TagString: Untagged
@@ -1354,6 +1420,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2674695985264394422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938592085003491584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &938592085278387418
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,6 +1593,7 @@ GameObject:
   - component: {fileID: 938592085617115657}
   - component: {fileID: 938592085617115703}
   - component: {fileID: 938592085617115702}
+  - component: {fileID: 2868345934517174534}
   m_Layer: 0
   m_Name: SpawnPoint (6)
   m_TagString: Untagged
@@ -1585,6 +1664,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2868345934517174534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938592085617115656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &938592085687025260
 GameObject:
   m_ObjectHideFlags: 0
@@ -1786,6 +1877,7 @@ GameObject:
   - component: {fileID: 938592085853422226}
   - component: {fileID: 938592085853422224}
   - component: {fileID: 938592085853422227}
+  - component: {fileID: 3973867442177157278}
   m_Layer: 0
   m_Name: SpawnPoint (3)
   m_TagString: Untagged
@@ -1856,6 +1948,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3973867442177157278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938592085853422229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f84591ce72545258ea98cb7518d8b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &938592085930999108
 GameObject:
   m_ObjectHideFlags: 0

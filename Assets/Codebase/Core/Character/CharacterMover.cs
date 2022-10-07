@@ -3,15 +3,16 @@ using Codebase.Infrastructure.Services;
 using Codebase.Infrastructure.Services.AssetManagement;
 using Codebase.Infrastructure.Services.Input;
 using Codebase.Infrastructure.Services.Spawn;
-using Mirror;
 using UnityEngine;
 
 namespace Codebase.Core.Character
 {
     [RequireComponent(typeof(CharacterController))]
-    public class CharacterMover : NetworkBehaviour, ICameraTarget
+    [RequireComponent(typeof(NetworkCharacter))]
+    public class CharacterMover : MonoBehaviour, ICameraTarget
     {
         private readonly bool _canMove = true;
+        private NetworkCharacter _networkCharacter;
         private CharacterController _characterController;
         private Vector3 _moveDirection = Vector3.zero;
         private float _rotationX;
@@ -26,8 +27,7 @@ namespace Codebase.Core.Character
 
         private IInputService _inputService;
         private ISpawnPointsStorage _spawnPointsStorage;
-
-        public bool IsLocalPlayer => isLocalPlayer;
+        public bool IsLocalPlayer => _networkCharacter.isLocalPlayer;
         public bool CanMove => _canMove;
         public float RotationX => _rotationX;
 
@@ -35,9 +35,12 @@ namespace Codebase.Core.Character
         {
             _inputService = AllServices.Container.Single<IInputService>();
             _spawnPointsStorage = AllServices.Container.Single<ISpawnPointsStorage>();
-            _characterController = GetComponent<CharacterController>();
             _movementsSettings = AllServices.Container.Single<IAssetProvider>()
                 .GetScriptableObject<GameSettings>(AssetPath.GameSettingsPath).CharacterMovementsSettings;
+
+            _networkCharacter = GetComponent<NetworkCharacter>();
+            _characterController = GetComponent<CharacterController>();
+
             SetToSpawnPoint();
         }
 
@@ -58,7 +61,7 @@ namespace Codebase.Core.Character
 
         private void Update()
         {
-            if (!isLocalPlayer) return;
+            if (!_networkCharacter.isLocalPlayer) return;
             RecalculateBaseMoveDirection();
             CalculateMovement();
             CalculateJump();

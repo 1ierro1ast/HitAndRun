@@ -23,7 +23,8 @@ namespace Codebase.Infrastructure.GameFlow
 
                 [typeof(MainMenuState)] = new MainMenuState(this, loadingCurtain, container.Single<IUiFactory>()),
 
-                [typeof(GameplayState)] = new GameplayState(this, loadingCurtain),
+                [typeof(GameplayState)] =
+                    new GameplayState(this, loadingCurtain, container.Single<IEventBus>(), coroutineRunner),
 
                 [typeof(MatchRestartState)] = new MatchRestartState(this, loadingCurtain,
                     container.Single<IAssetProvider>(), coroutineRunner)

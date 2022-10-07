@@ -7,10 +7,10 @@ namespace Codebase.Infrastructure.GameFlow
     {
         event Action LevelLoadedEvent;
         event Action GamePlayStartEvent;
-        event Action LevelFinishedEvent;
+        event Action<string> LevelFinishedEvent;
 
         void BroadcastLevelLoaded();
         void BroadcastGamePlayStart();
-        void BroadcastLevelFinished();
+        void BroadcastLevelFinished(string winnerName);
     }
 }

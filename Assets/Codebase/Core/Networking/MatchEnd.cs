@@ -1,6 +1,6 @@
 ﻿using Mirror;
 
-namespace Codebase.Infrastructure.GameFlow
+namespace Codebase.Core.Networking
 {
     public struct MatchEnd : NetworkMessage
     {

@@ -5,7 +5,6 @@ using Codebase.Infrastructure.Services.Factories;
 using Codebase.Infrastructure.Services.Input;
 using Codebase.Infrastructure.Services.NameSystem;
 using Codebase.Infrastructure.Services.SaveLoad;
-using Codebase.Infrastructure.Services.Score;
 using Codebase.Infrastructure.Services.Spawn;
 using Codebase.Infrastructure.StateMachine;
 
@@ -48,7 +47,6 @@ namespace Codebase.Infrastructure.GameFlow.States
             RegisterAssetProvider();
             RegisterSaveLoadService();
 
-            RegisterScoreCounter();
             RegisterNameService();
             RegisterFinishGameHandler();
             RegisterSpawnPointsStorage();
@@ -67,13 +65,8 @@ namespace Codebase.Infrastructure.GameFlow.States
 
         private void RegisterFinishGameHandler()
         {
-            _services.RegisterSingle<IFinishGameHandler>(new FinishGameHandler(_services.Single<IScoreCounter>(),
-                _services.Single<IAssetProvider>(), _services.Single<INameService>()));
-        }
-
-        private void RegisterScoreCounter()
-        {
-            _services.RegisterSingle<IScoreCounter>(new ScoreCounter());
+            _services.RegisterSingle<IFinishGameHandler>(new FinishGameHandler(_services.Single<IAssetProvider>(),
+                _services.Single<INameService>()));
         }
 
         private void RegisterLevelFactory()

@@ -1,35 +1,21 @@
-﻿using Codebase.Infrastructure.Services;
-using Codebase.Infrastructure.Services.Score;
-using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Codebase.Core.UI
 {
     public class ScoreView : MonoBehaviour
     {
-        [SerializeField] private TMP_Text _text;
-        private IScoreCounter _scoreCounter;
-
-        private void Awake()
+        [SerializeField] private Image[] _images;
+        
+        public void SetScore(int score)
         {
-            SetText(0);
-            _scoreCounter = AllServices.Container.Single<IScoreCounter>();
-            _scoreCounter.ScoreUpdated += ScoreCounter_OnScoreUpdated;
-        }
-
-        private void OnDestroy()
-        {
-            _scoreCounter.ScoreUpdated -= ScoreCounter_OnScoreUpdated;
-        }
-
-        private void ScoreCounter_OnScoreUpdated(int score)
-        {
-            SetText(score);
-        }
-
-        private void SetText(int score)
-        {
-            _text.text = score.ToString();
+            for (int i = 0; i < _images.Length; i++)
+            {
+                if (i < score)
+                    _images[i].gameObject.SetActive(true);
+                else
+                    _images[i].gameObject.SetActive(false);
+            }
         }
     }
 }

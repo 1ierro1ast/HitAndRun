@@ -1,6 +1,4 @@
-﻿using Codebase.Infrastructure.Services;
-using Codebase.Infrastructure.Services.Score;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Codebase.Core.Character
 {
@@ -8,20 +6,22 @@ namespace Codebase.Core.Character
     public class TagTrigger : MonoBehaviour
     {
         private ITagable _tagable;
-        private IScoreCounter _scoreCounter;
+        private NetworkCharacter _networkCharacter;
 
         private void Awake()
         {
             _tagable = GetComponent<ITagable>();
-            _scoreCounter = AllServices.Container.Single<IScoreCounter>();
+            _networkCharacter = GetComponent<NetworkCharacter>();
         }
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!_networkCharacter.hasAuthority) return;
+            if (!_networkCharacter.isLocalPlayer) return;
             if (!_tagable.CanTag) return;
             if (other.TryGetComponent(out ITagable tagable))
             {
-                _scoreCounter.AddScore();
+                _networkCharacter.AddScore();
                 tagable.Tag();
             }
         }
