@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Codebase.Core.Scores;
+using UnityEngine;
 
 namespace Codebase.Core.Character
 {
@@ -6,23 +7,22 @@ namespace Codebase.Core.Character
     public class TagTrigger : MonoBehaviour
     {
         private ITagable _tagable;
-        private NetworkCharacter _networkCharacter;
+        private ScoreCounter _scoreCounter;
 
         private void Awake()
         {
             _tagable = GetComponent<ITagable>();
-            _networkCharacter = GetComponent<NetworkCharacter>();
+            _scoreCounter = GetComponent<ScoreCounter>();
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!_networkCharacter.hasAuthority) return;
-            if (!_networkCharacter.isLocalPlayer) return;
+            if (!_scoreCounter.hasAuthority) return;
+            if (!_scoreCounter.isLocalPlayer) return;
             if (!_tagable.CanTag) return;
             if (other.TryGetComponent(out ITagable tagable))
             {
-                _networkCharacter.AddScore();
-                tagable.Tag();
+                tagable.Tag(_scoreCounter.AddScore);
             }
         }
     }

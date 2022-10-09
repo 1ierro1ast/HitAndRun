@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using Codebase.Core.Networking;
 using Codebase.Core.UI;
-using Codebase.Infrastructure.Services.Spawn;
 using Codebase.Infrastructure.StateMachine;
 using Mirror;
 using UnityEngine;
@@ -36,12 +35,15 @@ namespace Codebase.Infrastructure.GameFlow.States
         private IEnumerator StartGameplayCoroutine()
         {
             yield return new WaitForSeconds(0.25f);
+            NetworkClient.RegisterHandler<MatchEnd>(OnMatchEnd);
             _eventBus.BroadcastGamePlayStart();
             _loadingCurtain.ClosePopup();
         }
 
-        private void OnMatchEnd(MatchEnd obj)
+        private void OnMatchEnd(MatchEnd message)
         {
+            NetworkClient.UnregisterHandler<MatchEnd>();
+            _loadingCurtain.SetWinnerView(message.WinnerName);
             _gameStateMachine.Enter<MatchRestartState>();
         }
     }

@@ -1,18 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Codebase.Core.Character.States;
+using Codebase.Core.Scores;
 using Codebase.Core.Settings;
 using Codebase.Infrastructure.Services;
 using Codebase.Infrastructure.Services.AssetManagement;
+using Mirror;
 using UnityEngine;
 
 namespace Codebase.Core.Character
 {
-    [RequireComponent(typeof(NetworkCharacter))]
-    public class CharacterBehaviour : MonoBehaviour, ITagable
+    [RequireComponent(typeof(ScoreCounter))]
+    public class CharacterBehaviour : NetworkBehaviour, ITagable
     {
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private Renderer _view;
-        private NetworkCharacter _networkCharacter;
         private CharacterStateMachine _characterStateMachine;
         public bool CanTag => _characterStateMachine.CompareState<ShiftImpulseState>();
         private bool _isTagged;
@@ -21,19 +23,18 @@ namespace Codebase.Core.Character
 
         private void Awake()
         {
-            _networkCharacter = GetComponent<NetworkCharacter>();
             _originalColor = _view.material.color;
             _tagSettings = AllServices.Container.Single<IAssetProvider>()
                 .GetScriptableObject<GameSettings>(AssetPath.GameSettingsPath).TagSettings;
             _characterStateMachine = new CharacterStateMachine(_characterController, transform, AllServices.Container,
-                _networkCharacter);
+                this);
             _characterStateMachine.Enter<RunState>();
         }
 
-        public void Tag()
+        public void Tag(Action callback)
         {
             if (_isTagged) return;
-            Debug.Log("TAGGED");
+            callback();
             _isTagged = true;
             _view.material.color = _tagSettings.TaggedColor;
             StartCoroutine(TaggedTimer());

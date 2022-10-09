@@ -1,3 +1,4 @@
+using Codebase.Core.Scores;
 using Codebase.Core.Settings;
 using Codebase.Infrastructure.Services;
 using Codebase.Infrastructure.Services.AssetManagement;
@@ -8,11 +9,11 @@ using UnityEngine;
 namespace Codebase.Core.Character
 {
     [RequireComponent(typeof(CharacterController))]
-    [RequireComponent(typeof(NetworkCharacter))]
+    [RequireComponent(typeof(ScoreCounter))]
     public class CharacterMover : MonoBehaviour, ICameraTarget
     {
         private readonly bool _canMove = true;
-        private NetworkCharacter _networkCharacter;
+        private ScoreCounter _scoreCounter;
         private CharacterController _characterController;
         private Vector3 _moveDirection = Vector3.zero;
         private float _rotationX;
@@ -27,7 +28,7 @@ namespace Codebase.Core.Character
 
         private IInputService _inputService;
         private ISpawnPointsStorage _spawnPointsStorage;
-        public bool IsLocalPlayer => _networkCharacter.isLocalPlayer;
+        public bool IsLocalPlayer => _scoreCounter.isLocalPlayer;
         public bool CanMove => _canMove;
         public float RotationX => _rotationX;
 
@@ -38,7 +39,7 @@ namespace Codebase.Core.Character
             _movementsSettings = AllServices.Container.Single<IAssetProvider>()
                 .GetScriptableObject<GameSettings>(AssetPath.GameSettingsPath).CharacterMovementsSettings;
 
-            _networkCharacter = GetComponent<NetworkCharacter>();
+            _scoreCounter = GetComponent<ScoreCounter>();
             _characterController = GetComponent<CharacterController>();
 
             SetToSpawnPoint();
@@ -56,12 +57,12 @@ namespace Codebase.Core.Character
 
         private void Start()
         {
-            LockCursor();
+            //LockCursor();
         }
 
         private void Update()
         {
-            if (!_networkCharacter.isLocalPlayer) return;
+            if (!_scoreCounter.isLocalPlayer) return;
             RecalculateBaseMoveDirection();
             CalculateMovement();
             CalculateJump();

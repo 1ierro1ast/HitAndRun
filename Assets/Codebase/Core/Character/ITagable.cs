@@ -1,8 +1,10 @@
-﻿namespace Codebase.Core.Character
+﻿using System;
+
+namespace Codebase.Core.Character
 {
     public interface ITagable
     {
         bool CanTag { get; }
-        void Tag();
+        void Tag(Action callback);
     }
 }

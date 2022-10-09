@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Codebase.Core.Scores;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Codebase.Core.UI
@@ -6,8 +8,26 @@ namespace Codebase.Core.UI
     public class ScoreView : MonoBehaviour
     {
         [SerializeField] private Image[] _images;
-        
-        public void SetScore(int score)
+        private IScoreCounter _scoreCounter;
+
+        private void Awake()
+        {
+            _scoreCounter = GetComponentInParent<IScoreCounter>();
+            _scoreCounter.ScoreUpdated += ScoreCounter_OnScoreUpdated;
+        }
+
+        private void OnDestroy()
+        {
+            _scoreCounter.ScoreUpdated -= ScoreCounter_OnScoreUpdated;
+
+        }
+
+        private void ScoreCounter_OnScoreUpdated(int scoreAmount)
+        {
+            SetScore(scoreAmount);
+        }
+
+        private void SetScore(int score)
         {
             for (int i = 0; i < _images.Length; i++)
             {

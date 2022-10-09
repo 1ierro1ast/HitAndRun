@@ -4,6 +4,6 @@ namespace Codebase.Core.Networking
 {
     public struct MatchEnd : NetworkMessage
     {
-        public string PlayerName;
+        public string WinnerName;
     }
 }

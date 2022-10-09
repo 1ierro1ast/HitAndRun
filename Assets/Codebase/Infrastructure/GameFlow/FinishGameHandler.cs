@@ -1,7 +1,9 @@
-﻿using Codebase.Core.Settings;
+﻿using Codebase.Core.Networking;
+using Codebase.Core.Scores;
+using Codebase.Core.Settings;
 using Codebase.Infrastructure.Services.AssetManagement;
 using Codebase.Infrastructure.Services.NameSystem;
-using UnityEngine;
+using Mirror;
 
 namespace Codebase.Infrastructure.GameFlow
 {
@@ -18,11 +20,21 @@ namespace Codebase.Infrastructure.GameFlow
                 .GameplaySettings;
         }
 
+        public void RegisterScoreCounter(IScoreCounter scoreCounter)
+        {
+            scoreCounter.ScoreUpdated += ScoreCounter_OnScoreUpdated;
+        }
+        
+        public void DisposeScoreCounter(IScoreCounter scoreCounter)
+        {
+            scoreCounter.ScoreUpdated -= ScoreCounter_OnScoreUpdated;
+        }
+
         private void ScoreCounter_OnScoreUpdated(int score)
         {
             if (score >= _gameplaySettings.GoalScore)
             {
-                Debug.Log(000);
+                NetworkServer.SendToAll(new MatchEnd{WinnerName = _nameService.PlayerName});
             }
         }
     }
