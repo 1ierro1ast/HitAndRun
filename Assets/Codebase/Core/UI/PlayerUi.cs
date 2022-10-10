@@ -16,7 +16,7 @@ namespace Codebase.Core.UI
 
         public void SetReadyStatus(bool isPlayerReady)
         {
-            Debug.Log(nameof(SetReadyStatus));
+            Debug.Log($"{isPlayerReady}");
             _isPlayerReady.text = isPlayerReady ? "<color=green>READY</color>" : "<color=red>NOT READY</color>";
         }
     }

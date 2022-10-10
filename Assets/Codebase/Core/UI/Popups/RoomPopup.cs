@@ -1,5 +1,7 @@
 ﻿using System;
 using Codebase.Core.Networking;
+using Codebase.Infrastructure.GameFlow;
+using Codebase.Infrastructure.Services;
 using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,16 +12,19 @@ namespace Codebase.Core.UI.Popups
     {
         [SerializeField] private Button _playerReadyButton;
         [SerializeField] private Button _playerCancelReadyButton;
-        private RoomNetwork _roomNetwork;
+        
+        private RoomNetworkUi _roomNetworkUi;
         private CustomNetworkRoomManager _networkManager;
+        private IEventBus _eventBus;
 
-        public RoomNetwork RoomNetwork => _roomNetwork;
+        public RoomNetworkUi RoomNetworkUi => _roomNetworkUi;
         public event Action<bool> ChangeLocalReadyStatus;
 
         protected override void OnInitialization()
         {
             base.OnInitialization();
-            _roomNetwork = GetComponent<RoomNetwork>();
+            _roomNetworkUi = GetComponent<RoomNetworkUi>();
+
             _playerReadyButton?.onClick.AddListener(OnReadyButtonClick);
             _playerCancelReadyButton?.onClick.AddListener(OnCancelReadyButtonClick);
         }
@@ -40,24 +45,13 @@ namespace Codebase.Core.UI.Popups
 
         private void SetReadyStatusButton(bool isReady)
         {
-            _playerReadyButton.gameObject.SetActive(isReady);
-            _playerCancelReadyButton.gameObject.SetActive(!isReady);
+            _playerReadyButton.gameObject.SetActive(!isReady);
+            _playerCancelReadyButton.gameObject.SetActive(isReady);
         }
 
         public void SetNetworkManager(CustomNetworkRoomManager networkManager)
         {
             _networkManager = networkManager;
-            _networkManager.AllPlayersReady += NetworkManager_OnAllPlayersReady;
-        }
-
-        private void OnDestroy()
-        {
-            _networkManager.AllPlayersReady -= NetworkManager_OnAllPlayersReady;
-        }
-
-        private void NetworkManager_OnAllPlayersReady()
-        {
-            
         }
     }
 }

@@ -7,6 +7,7 @@ namespace Codebase.Infrastructure.GameFlow
         public event Action LevelLoadedEvent;
         public event Action GamePlayStartEvent;
         public event Action<string> LevelFinishedEvent;
+        public event Action ReadyToGameEvent;
 
         public void BroadcastLevelLoaded()
         {
@@ -21,6 +22,11 @@ namespace Codebase.Infrastructure.GameFlow
         public void BroadcastLevelFinished(string winnerName)
         {
             LevelFinishedEvent?.Invoke(winnerName);
+        }
+
+        public void BroadcastReadyToGame()
+        {
+            ReadyToGameEvent?.Invoke();
         }
     }
 }

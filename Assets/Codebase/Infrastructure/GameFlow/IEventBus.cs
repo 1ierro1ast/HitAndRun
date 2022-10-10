@@ -8,9 +8,11 @@ namespace Codebase.Infrastructure.GameFlow
         event Action LevelLoadedEvent;
         event Action GamePlayStartEvent;
         event Action<string> LevelFinishedEvent;
+        event Action ReadyToGameEvent;
 
         void BroadcastLevelLoaded();
         void BroadcastGamePlayStart();
         void BroadcastLevelFinished(string winnerName);
+        void BroadcastReadyToGame();
     }
 }
