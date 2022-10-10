@@ -35,7 +35,7 @@ namespace Codebase.Infrastructure.GameFlow.States
         private void StartPopup_OnStartButtonClickEvent()
         {
             _loadingCurtain.OpenPopup();
-            _gameStateMachine.Enter<GameplayState>();
+            _gameStateMachine.Enter<LobbyState>();
         }
     }
 }

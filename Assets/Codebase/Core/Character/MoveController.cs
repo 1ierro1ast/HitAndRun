@@ -36,14 +36,13 @@ namespace Codebase.Core.Character
         private void Awake()
         {
             _inputService = AllServices.Container.Single<IInputService>();
-            _spawnPointsStorage = AllServices.Container.Single<ISpawnPointsStorage>();
             _movementsSettings = AllServices.Container.Single<IAssetProvider>()
                 .GetScriptableObject<GameSettings>(AssetPath.GameSettingsPath).CharacterMovementsSettings;
 
             _scoreCounter = GetComponent<ScoreCounter>();
             _characterController = GetComponent<CharacterController>();
 
-            SetToSpawnPoint();
+            //SetToSpawnPoint();
         }
 
         private void SetToSpawnPoint()

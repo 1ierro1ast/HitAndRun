@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4154690504132322057}
   - component: {fileID: 4154690504132322059}
-  - component: {fileID: 773774520077520861}
+  - component: {fileID: 1706515089097382877}
+  - component: {fileID: -20786210688241756}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -61,7 +62,7 @@ MonoBehaviour:
   debugLog: 0
   statisticsGUI: 0
   statisticsLog: 0
---- !u!114 &773774520077520861
+--- !u!114 &1706515089097382877
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,28 +71,45 @@ MonoBehaviour:
   m_GameObject: {fileID: 4154690504132322061}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 615e6c6589cf9e54cad646b5a11e0529, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: b7126220ce0f08740813f89fb0b50ec6
+  hasSpawned: 0
+--- !u!114 &-20786210688241756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4154690504132322061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de135e6912c870642815131188006673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
   runInBackground: 1
   autoStartServerBuild: 1
   serverTickRate: 30
-  offlineScene: Assets/Scenes/BootstrapScene.unity
+  offlineScene: Assets/Scenes/MenuScene.unity
   onlineScene: Assets/Scenes/LobbyScene.unity
   transport: {fileID: 4154690504132322059}
   networkAddress: localhost
-  maxConnections: 100
+  maxConnections: 6
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 3621033304900880917, guid: 917a67b24e189364eb72b99baac24a55, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs: []
-  showRoomGUI: 1
+  showRoomGUI: 0
   minPlayers: 1
-  roomPlayerPrefab: {fileID: 5559348438253251970, guid: 917a67b24e189364eb72b99baac24a55, type: 3}
+  roomPlayerPrefab: {fileID: 5232093744739030206, guid: 3146f774deadcac41b18e4cb9944fda4, type: 3}
   RoomScene: Assets/Scenes/LobbyScene.unity
   GameplayScene: Assets/Scenes/GameScene.unity
-  _allPlayersReady: 1
+  _allPlayersReady: 0
   roomSlots: []
   clientIndex: 0

@@ -22,6 +22,7 @@ namespace Codebase.Infrastructure.GameFlow
                     container.Single<INetworkFactory>(), container.Single<ILevelFactory>()),
 
                 [typeof(MainMenuState)] = new MainMenuState(this, loadingCurtain, container.Single<IUiFactory>()),
+                [typeof(LobbyState)] = new LobbyState(this, container.Single<IUiFactory>(), loadingCurtain),
 
                 [typeof(GameplayState)] =
                     new GameplayState(this, loadingCurtain, container.Single<IEventBus>(), coroutineRunner),

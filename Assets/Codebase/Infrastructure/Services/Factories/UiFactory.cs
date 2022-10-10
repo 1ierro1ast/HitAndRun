@@ -10,6 +10,7 @@ namespace Codebase.Infrastructure.Services.Factories
         private readonly INetworkFactory _networkFactory;
 
         private StartPopup _startPopup;
+        private RoomPopup _roomPopup;
         private OverlayPopup _overlayPopup;
 
         public UiFactory(IAssetProvider assetProvider, INetworkFactory networkFactory)
@@ -22,11 +23,11 @@ namespace Codebase.Infrastructure.Services.Factories
         private void InitializePopups()
         {
             CreateStartPopup();
+            CreateRoomPopup();
             CreateOverlayPopup();
         }
         public StartPopup CreateStartPopup()
         {
-            //Debug.Log("start popup");
             if (_startPopup == null)
             {
                 _startPopup = _assetProvider.Instantiate<StartPopup>(AssetPath.StartPopupPath);
@@ -34,6 +35,17 @@ namespace Codebase.Infrastructure.Services.Factories
                 Object.DontDestroyOnLoad(_startPopup);
             }
             return _startPopup;
+        }
+
+        public RoomPopup CreateRoomPopup()
+        {
+            if (_roomPopup == null)
+            {
+                _roomPopup = _assetProvider.Instantiate<RoomPopup>(AssetPath.RoomPopupPath);
+                _roomPopup.SetNetworkManager(_networkFactory.GetNetworkManager());
+                Object.DontDestroyOnLoad(_roomPopup);
+            }
+            return _roomPopup;
         }
 
         public OverlayPopup CreateOverlayPopup()

@@ -99,7 +99,6 @@
      <Compile Include="Assets\Codebase\Core\UI\Popup.cs" />
      <Compile Include="Assets\Codebase\Core\Character\ISupportTagState.cs" />
      <Compile Include="Assets\Codebase\Infrastructure\Services\Factories\ILevelFactory.cs" />
-     <Compile Include="Assets\Codebase\Core\Networking\CustomNetworkManager.cs" />
      <Compile Include="Assets\Codebase\Core\Character\States\ShiftImpulseState.cs" />
      <Compile Include="Assets\Codebase\Infrastructure\Services\Input\IInputService.cs" />
      <Compile Include="Assets\Codebase\Infrastructure\Services\Factories\IUiFactory.cs" />
@@ -117,6 +116,12 @@
      <Compile Include="Assets\Codebase\Core\Character\Cameras\CameraXAxisRotator.cs" />
      <Compile Include="Assets\Codebase\Core\Character\MoveController.cs" />
      <Compile Include="Assets\Codebase\Core\Character\Cameras\ICameraTarget.cs" />
+     <Compile Include="Assets\Codebase\Core\UI\Popups\RoomPopup.cs" />
+     <Compile Include="Assets\Codebase\Core\Networking\CustomNetworkRoomPlayer.cs" />
+     <Compile Include="Assets\Codebase\Core\UI\RoomNetwork.cs" />
+     <Compile Include="Assets\Codebase\Core\UI\PlayerUi.cs" />
+     <Compile Include="Assets\Codebase\Infrastructure\GameFlow\States\LobbyState.cs" />
+     <Compile Include="Assets\Codebase\Core\Networking\CustomNetworkRoomManager.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\ScriptTemplates\51-Mirror__Network Authenticator-NewNetworkAuthenticator.cs.txt" />
