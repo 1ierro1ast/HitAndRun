@@ -39,7 +39,7 @@ namespace Codebase.Infrastructure.GameFlow.States
 
         private void EnterLoadLevel()
         {
-            _stateMachine.Enter<LoadLevelState, string>("GameScene");
+            _stateMachine.Enter<LoadLevelState, string>("MenuScene");
         }
 
         private void RegisterServices()

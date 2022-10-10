@@ -1,22 +1,23 @@
 ﻿using Codebase.Core.Networking;
 using Codebase.Infrastructure.Services.AssetManagement;
+using Mirror;
 
 namespace Codebase.Infrastructure.Services.Factories
 {
     public class NetworkFactory : INetworkFactory
     {
         private readonly IAssetProvider _assetProvider;
-        private CustomNetworkManager _networkManager;
+        private NetworkRoomManager _networkManager;
 
         public NetworkFactory(IAssetProvider assetProvider)
         {
             _assetProvider = assetProvider;
         }
         
-        public CustomNetworkManager GetNetworkManager()
+        public NetworkRoomManager GetNetworkManager()
         {
             if (_networkManager == null)
-                _networkManager = _assetProvider.Instantiate<CustomNetworkManager>(AssetPath.NetworkManagerPath);
+                _networkManager = _assetProvider.Instantiate<NetworkRoomManager>(AssetPath.NetworkManagerPath);
             return _networkManager;
         }
     }

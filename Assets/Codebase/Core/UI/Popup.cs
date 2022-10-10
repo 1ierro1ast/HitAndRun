@@ -15,8 +15,6 @@ namespace Codebase.Core.UI
         [SerializeField] private Animator[] _animators;
         [SerializeField] private Button _closePopupButton;
 
-        public static event Action<bool> PopupActionButtonPressed;
-
         private const string AnimatorOpenPopupBoolKey = "IsOpen";
         private static readonly int Open = Animator.StringToHash(AnimatorOpenPopupBoolKey);
         private bool _isOpen;

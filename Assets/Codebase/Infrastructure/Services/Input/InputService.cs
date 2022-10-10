@@ -12,6 +12,7 @@ namespace Codebase.Infrastructure.Services.Input
         public float MouseY => UnityEngine.Input.GetAxis("Mouse Y");
         public bool JumpButton => UnityEngine.Input.GetButton("Jump");
         public bool IsRunning => UnityEngine.Input.GetKey(KeyCode.LeftShift);
+        public bool IsMoving => Mathf.Abs(HorizontalSpeed) > 0 || Mathf.Abs(VerticalSpeed) > 0;
 
         public event Action FireButtonEvent;
 

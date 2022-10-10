@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4154690504132322057}
   - component: {fileID: 4154690504132322059}
-  - component: {fileID: 6057248880065309640}
+  - component: {fileID: 773774520077520861}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -61,7 +61,7 @@ MonoBehaviour:
   debugLog: 0
   statisticsGUI: 0
   statisticsLog: 0
---- !u!114 &6057248880065309640
+--- !u!114 &773774520077520861
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,20 +70,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 4154690504132322061}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac4f4e3788ded3046aa5ee94d3fb8a85, type: 3}
+  m_Script: {fileID: 11500000, guid: 615e6c6589cf9e54cad646b5a11e0529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
   runInBackground: 1
   autoStartServerBuild: 1
   serverTickRate: 30
-  offlineScene: 
-  onlineScene: 
+  offlineScene: Assets/Scenes/BootstrapScene.unity
+  onlineScene: Assets/Scenes/LobbyScene.unity
   transport: {fileID: 4154690504132322059}
   networkAddress: localhost
   maxConnections: 100
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 3621033304900880917, guid: 917a67b24e189364eb72b99baac24a55, type: 3}
   autoCreatePlayer: 1
-  playerSpawnMethod: 1
+  playerSpawnMethod: 0
   spawnPrefabs: []
+  showRoomGUI: 1
+  minPlayers: 1
+  roomPlayerPrefab: {fileID: 5559348438253251970, guid: 917a67b24e189364eb72b99baac24a55, type: 3}
+  RoomScene: Assets/Scenes/LobbyScene.unity
+  GameplayScene: Assets/Scenes/GameScene.unity
+  _allPlayersReady: 1
+  roomSlots: []
+  clientIndex: 0

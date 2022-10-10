@@ -1,3 +1,4 @@
+using Codebase.Core.Character.Cameras;
 using Codebase.Core.Scores;
 using Codebase.Core.Settings;
 using Codebase.Infrastructure.Services;
@@ -10,7 +11,7 @@ namespace Codebase.Core.Character
 {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(ScoreCounter))]
-    public class CharacterMover : MonoBehaviour, ICameraTarget
+    public class MoveController : MonoBehaviour, ICameraTarget
     {
         private readonly bool _canMove = true;
         private ScoreCounter _scoreCounter;
@@ -57,7 +58,7 @@ namespace Codebase.Core.Character
 
         private void Start()
         {
-            //LockCursor();
+            LockCursor();
         }
 
         private void Update()

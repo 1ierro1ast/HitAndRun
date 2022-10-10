@@ -1,4 +1,4 @@
-﻿namespace Codebase.Core.Character
+﻿namespace Codebase.Core.Character.Cameras
 {
     public interface ICameraTarget
     {

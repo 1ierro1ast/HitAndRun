@@ -26,8 +26,8 @@ namespace Codebase.Core.Character
             _originalColor = _view.material.color;
             _tagSettings = AllServices.Container.Single<IAssetProvider>()
                 .GetScriptableObject<GameSettings>(AssetPath.GameSettingsPath).TagSettings;
-            _characterStateMachine = new CharacterStateMachine(_characterController, transform, AllServices.Container,
-                this);
+            _characterStateMachine = new CharacterStateMachine(
+                _characterController, transform, AllServices.Container, this);
             _characterStateMachine.Enter<RunState>();
         }
 

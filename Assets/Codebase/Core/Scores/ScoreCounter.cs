@@ -17,20 +17,21 @@ namespace Codebase.Core.Scores
         {
             ScoreUpdated?.Invoke(_scores);
             
-            if (!isLocalPlayer) return;
+            if (!hasAuthority) return;
             _finishGameHandler = AllServices.Container.Single<IFinishGameHandler>();
             _finishGameHandler.RegisterScoreCounter(this);
         }
 
         private void OnDestroy()
         {
-            if (!isLocalPlayer) return;
+            if (!hasAuthority) return;
             _finishGameHandler.DisposeScoreCounter(this);
         }
 
         private void SyncScores(int oldValue, int newValue)
         {
             _scores = newValue;
+            ScoreUpdated?.Invoke(_scores);
         }
 
         [Server]

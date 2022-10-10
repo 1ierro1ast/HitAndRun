@@ -18,7 +18,6 @@ namespace Codebase.Core.Character
         private void OnTriggerEnter(Collider other)
         {
             if (!_scoreCounter.hasAuthority) return;
-            if (!_scoreCounter.isLocalPlayer) return;
             if (!_tagable.CanTag) return;
             if (other.TryGetComponent(out ITagable tagable))
             {

@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 
-namespace Codebase.Core.Character
+namespace Codebase.Core.Character.Cameras
 {
     public class CameraXAxisRotator : MonoBehaviour
     {
-        [SerializeField] private Camera _camera;
+        private Camera _camera;
         private ICameraTarget _cameraTarget;
 
         private void Start()
         {
+            _camera = GetComponent<Camera>();
             _cameraTarget = GetComponentInParent<ICameraTarget>();
             if(!_cameraTarget.IsLocalPlayer) _camera.gameObject.SetActive(false);
         }

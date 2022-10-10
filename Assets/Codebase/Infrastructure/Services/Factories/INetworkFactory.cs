@@ -1,9 +1,9 @@
-﻿using Codebase.Core.Networking;
+﻿using Mirror;
 
 namespace Codebase.Infrastructure.Services.Factories
 {
     public interface INetworkFactory : IService
     {
-        CustomNetworkManager GetNetworkManager();
+        NetworkRoomManager GetNetworkManager();
     }
 }
