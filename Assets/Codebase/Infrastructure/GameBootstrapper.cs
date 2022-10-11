@@ -13,11 +13,11 @@ namespace Codebase.Infrastructure
 
         private void Awake()
         {
-            DontDestroyOnLoad(LoadingCurtain);
             StateMachine = new GameStateMachine(new SceneLoader(this), LoadingCurtain, AllServices.Container,
                 this);
             StateMachine.Enter<BootstrapState>();
 
+            DontDestroyOnLoad(LoadingCurtain);
             DontDestroyOnLoad(this);
         }
     }

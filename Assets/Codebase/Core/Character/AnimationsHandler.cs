@@ -23,6 +23,7 @@ namespace Codebase.Core.Character
         private void Update()
         {
             if (!hasAuthority) return;
+            
             if(_cachedMovingFlag != _inputService.IsMoving) 
                 SetMove(_inputService.IsMoving);
             if(_cachedRunningFlag != _inputService.IsRunning) 

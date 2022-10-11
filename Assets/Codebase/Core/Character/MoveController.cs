@@ -26,9 +26,9 @@ namespace Codebase.Core.Character
         private bool _isRunning;
 
         private CharacterMovementsSettings _movementsSettings;
-
         private IInputService _inputService;
         private ISpawnPointsStorage _spawnPointsStorage;
+        
         public bool IsLocalPlayer => _scoreCounter.isLocalPlayer;
         public bool CanMove => _canMove;
         public float RotationX => _rotationX;
@@ -41,18 +41,6 @@ namespace Codebase.Core.Character
 
             _scoreCounter = GetComponent<ScoreCounter>();
             _characterController = GetComponent<CharacterController>();
-
-            //SetToSpawnPoint();
-        }
-
-        private void SetToSpawnPoint()
-        {
-            _characterController.enabled = false;
-            var spawnPoint = _spawnPointsStorage.GetSpawnPoint();
-            var t = transform;
-            t.position = spawnPoint.position;
-            t.rotation = spawnPoint.rotation;
-            _characterController.enabled = true;
         }
 
         private void Start()

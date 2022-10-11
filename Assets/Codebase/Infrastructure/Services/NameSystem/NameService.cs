@@ -1,5 +1,4 @@
-﻿using System;
-using Codebase.Core.Settings;
+﻿using Codebase.Core.Settings;
 using Codebase.Infrastructure.Services.AssetManagement;
 
 namespace Codebase.Infrastructure.Services.NameSystem
@@ -9,7 +8,7 @@ namespace Codebase.Infrastructure.Services.NameSystem
         private readonly NameSettings _nameSettings;
 
         private string _playerName = "";
-        public event Action<string> NameChanged;
+
         public string PlayerName => _playerName == "" ? _nameSettings.DefaultName : _playerName;
         public int MaxPlayerNameLength => _nameSettings.MaxPlayerNameLength;
 
@@ -22,7 +21,6 @@ namespace Codebase.Infrastructure.Services.NameSystem
         public void SetPlayerName(string name)
         {
             _playerName = name;
-            NameChanged?.Invoke(_playerName);
         }
     }
 }

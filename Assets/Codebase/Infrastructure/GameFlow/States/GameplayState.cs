@@ -1,10 +1,7 @@
 ﻿using System.Collections;
-using Codebase.Core.Character;
-using Codebase.Core.Networking;
 using Codebase.Core.UI;
 using Codebase.Infrastructure.Services.Factories;
 using Codebase.Infrastructure.StateMachine;
-using Mirror;
 using UnityEngine;
 
 namespace Codebase.Infrastructure.GameFlow.States
@@ -29,18 +26,19 @@ namespace Codebase.Infrastructure.GameFlow.States
 
         public void Exit()
         {
+            _eventBus.LevelFinishedEvent -= EventBus_OnLevelFinishedEvent;
         }
 
         public void Enter()
         {
             _levelFactory.GetLevel();
             _coroutineRunner.StartCoroutine(StartGameplayCoroutine());
-            NetworkClient.RegisterHandler<MatchEnd>(EventBus_OnLevelFinishedEvent);
+            _eventBus.LevelFinishedEvent += EventBus_OnLevelFinishedEvent;
         }
 
-        private void EventBus_OnLevelFinishedEvent(MatchEnd matchEnd)
+        private void EventBus_OnLevelFinishedEvent(string winnerName)
         {
-            _loadingCurtain.SetWinnerView(matchEnd.WinnerName);
+            _loadingCurtain.SetWinnerView(winnerName);
             _gameStateMachine.Enter<MatchRestartState>();
         }
 
@@ -50,6 +48,5 @@ namespace Codebase.Infrastructure.GameFlow.States
             _eventBus.BroadcastGamePlayStart();
             _loadingCurtain.ClosePopup();
         }
-        
     }
 }

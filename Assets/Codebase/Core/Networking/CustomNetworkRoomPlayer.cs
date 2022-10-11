@@ -8,12 +8,12 @@ namespace Codebase.Core.Networking
 {
     public class CustomNetworkRoomPlayer : NetworkRoomPlayer
     {
+        [SyncVar(hook = nameof(SyncName))] 
+        private string _syncName;
+        
         private IUiFactory _uiFactory;
-
         private INameService _nameService;
-
         private RoomPopup _roomPopup;
-
         private CustomNetworkRoomManager _room;
         
         private void Awake()
@@ -31,15 +31,9 @@ namespace Codebase.Core.Networking
             _roomPopup.ChangeLocalReadyStatus -= RoomPopup_OnChangeLocalReadyStatus;
         }
 
-        private void RoomPopup_OnChangeLocalReadyStatus(bool readyStatus)
-        {
-            CmdChangeReadyState(readyStatus);
-        }
-
         public override void OnStartClient()
         {
-            _roomPopup.RoomNetworkUi.AddPlayer(_nameService.PlayerName, readyToBegin);
-
+            SetRoomPlayerName();
             UpdateViews();
         }
 
@@ -48,14 +42,47 @@ namespace Codebase.Core.Networking
             UpdateViews();
         }
 
-        public override void ReadyStateChanged(bool oldReadyState, bool newReadyState)
+        private void RoomPopup_OnChangeLocalReadyStatus(bool readyStatus)
         {
-            UpdateViews();
+            CmdChangeReadyState(readyStatus);
+        }
+
+        private void SetRoomPlayerName()
+        {
+            if (!hasAuthority) return;
+
+            _nameService = AllServices.Container.Single<INameService>();
+            if (isServer)
+            {
+                ChangeNameValue(_nameService.PlayerName);
+            }
+            else
+            {
+                CmdChangeName(_nameService.PlayerName);
+            }
         }
 
         private void UpdateViews()
         {
             _roomPopup.RoomNetworkUi.UpdateViews(_room.roomSlots);
         }
+
+        public override void ReadyStateChanged(bool oldReadyState, bool newReadyState)
+        {
+            UpdateViews();
+        }
+
+        private void SyncName(string oldValue, string newValue)
+        {
+            _roomPopup.RoomNetworkUi.AddPlayer(_syncName, readyToBegin);
+            UpdateViews();
+        }
+
+        [Server]
+        private void ChangeNameValue(string newValue) => _syncName = newValue;
+
+
+        [Command]
+        private void CmdChangeName(string newValue) => ChangeNameValue(newValue);
     }
 }

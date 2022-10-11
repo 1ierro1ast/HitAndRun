@@ -8,7 +8,7 @@ namespace Codebase.Core.UI
     {
         [SerializeField] private PlayerUi _playerUiPrefab;
         [SerializeField] private Transform _playersParent;
-        [SerializeField] private List<PlayerUi> _playerViews = new List<PlayerUi>(5);
+        [SerializeField] private List<PlayerUi> _playerViews = new List<PlayerUi>(6);
 
         public void AddPlayer(string playerName, bool readyToBegin)
         {

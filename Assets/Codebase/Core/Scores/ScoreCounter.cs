@@ -1,4 +1,5 @@
 ﻿using System;
+using Codebase.Core.Character;
 using Codebase.Infrastructure.GameFlow;
 using Codebase.Infrastructure.Services;
 using Mirror;
@@ -8,80 +9,62 @@ namespace Codebase.Core.Scores
 {
     public class ScoreCounter : NetworkBehaviour, IScoreCounter
     {
-        [SyncVar(hook = nameof(SyncScores))] public int _syncScores;
-        private int _scores;
+        [SyncVar(hook = nameof(SyncScores))] 
+        private int _syncScores;
+
         private IFinishGameHandler _finishGameHandler;
+        private INameHolder _nameHolder;
+        private int _scores;
+
         public event Action<int> ScoreUpdated;
 
         private void Start()
         {
+            _nameHolder = GetComponent<INameHolder>();
             ScoreUpdated?.Invoke(_scores);
-            
-            if (!hasAuthority) return;
+
             _finishGameHandler = AllServices.Container.Single<IFinishGameHandler>();
-            _finishGameHandler.RegisterScoreCounter(this);
         }
 
-        private void OnDestroy()
+        public void AddScore()
         {
-            if (!hasAuthority) return;
-            _finishGameHandler.DisposeScoreCounter(this);
+            _scores++;
+            SetScores(_scores);
+            
+            ScoreUpdated?.Invoke(_scores);
+        }
+
+        public void CleanScores()
+        {
+            _scores = 0;
+            SetScores(_scores);
+            
+            ScoreUpdated?.Invoke(_scores);
+        }
+
+        private void SetScores(int scores)
+        {
+            if (isServer)
+            {
+                ChangeScoresValue(scores);
+            }
+            else
+            {
+                CmdChangeScores(scores);
+            }
         }
 
         private void SyncScores(int oldValue, int newValue)
         {
             _scores = newValue;
             ScoreUpdated?.Invoke(_scores);
+            _finishGameHandler.HandleScore(_scores, _nameHolder.Name);
         }
 
         [Server]
-        private void ChangeScoresValue(int newValue)
-        {
-            _syncScores = newValue;
-        }
+        private void ChangeScoresValue(int newValue) => _syncScores = newValue;
 
         [Command]
-        private void CmdChangeScores(int newValue)
-        {
-            ChangeScoresValue(newValue);
-        }
-
-        public void AddScore()
-        {
-            _scores++;
-            if (isServer)
-            {
-                ChangeScoresValue(_scores);
-            }
-            else
-            {
-                CmdChangeScores(_scores);
-            }
-            
-            ScoreUpdated?.Invoke(_scores);
-        }
-
-
-        private void Update()
-        {
-            if (hasAuthority)
-            {
-                if(Input.GetKeyDown(KeyCode.J)) AddScore();
-            }
-        }
-
-        public void CleanScores()
-        {
-            _scores = 0;
-            if (isServer)
-            {
-                ChangeScoresValue(_scores);
-            }
-            else
-            {
-                CmdChangeScores(_scores);
-            }
-            ScoreUpdated?.Invoke(_scores);
-        }
+        private void CmdChangeScores(int newValue) => ChangeScoresValue(newValue);
     }
 }

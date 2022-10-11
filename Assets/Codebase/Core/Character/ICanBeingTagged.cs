@@ -2,7 +2,7 @@
 
 namespace Codebase.Core.Character
 {
-    public interface ITagable
+    public interface ICanBeingTagged
     {
         bool CanTag { get; }
         void Tag(Action callback);

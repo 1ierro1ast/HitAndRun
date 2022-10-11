@@ -4,7 +4,6 @@ using Codebase.Infrastructure.Services.AssetManagement;
 using Codebase.Infrastructure.Services.Factories;
 using Codebase.Infrastructure.Services.Input;
 using Codebase.Infrastructure.Services.NameSystem;
-using Codebase.Infrastructure.Services.SaveLoad;
 using Codebase.Infrastructure.Services.Spawn;
 using Codebase.Infrastructure.StateMachine;
 
@@ -45,7 +44,6 @@ namespace Codebase.Infrastructure.GameFlow.States
         private void RegisterServices()
         {
             RegisterAssetProvider();
-            RegisterSaveLoadService();
 
             RegisterNameService();
             RegisterSpawnPointsStorage();
@@ -66,7 +64,7 @@ namespace Codebase.Infrastructure.GameFlow.States
         private void RegisterFinishGameHandler()
         {
             _services.RegisterSingle<IFinishGameHandler>(new FinishGameHandler(_services.Single<IAssetProvider>(),
-                _services.Single<INameService>(), _services.Single<IEventBus>()));
+                _services.Single<IEventBus>()));
         }
 
         private void RegisterLevelFactory()
@@ -99,11 +97,6 @@ namespace Codebase.Infrastructure.GameFlow.States
         private void RegisterAssetProvider()
         {
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
-        }
-
-        private void RegisterSaveLoadService()
-        {
-            _services.RegisterSingle<ISaveLoadService>(new SaveLoadService());
         }
 
         private void RegisterEventBus()

@@ -1,5 +1,4 @@
-﻿using System;
-using Codebase.Core.Scores;
+﻿using Codebase.Core.Scores;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +18,6 @@ namespace Codebase.Core.UI
         private void OnDestroy()
         {
             _scoreCounter.ScoreUpdated -= ScoreCounter_OnScoreUpdated;
-
         }
 
         private void ScoreCounter_OnScoreUpdated(int scoreAmount)

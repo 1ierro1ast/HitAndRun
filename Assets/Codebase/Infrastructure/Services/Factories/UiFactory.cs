@@ -6,7 +6,7 @@ namespace Codebase.Infrastructure.Services.Factories
 {
     public class UiFactory : IUiFactory
     {
-        private IAssetProvider _assetProvider;
+        private readonly IAssetProvider _assetProvider;
         private readonly INetworkFactory _networkFactory;
 
         private StartPopup _startPopup;
@@ -42,7 +42,6 @@ namespace Codebase.Infrastructure.Services.Factories
             if (_roomPopup == null)
             {
                 _roomPopup = _assetProvider.Instantiate<RoomPopup>(AssetPath.RoomPopupPath);
-                _roomPopup.SetNetworkManager(_networkFactory.GetNetworkManager());
                 Object.DontDestroyOnLoad(_roomPopup);
             }
             return _roomPopup;

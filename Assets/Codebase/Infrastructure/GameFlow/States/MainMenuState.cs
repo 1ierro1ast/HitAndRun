@@ -19,6 +19,7 @@ namespace Codebase.Infrastructure.GameFlow.States
             _loadingCurtain = loadingCurtain;
             _uiFactory = uiFactory;
         }
+
         public void Exit()
         {
             _startPopup.StartButtonClickEvent -= StartPopup_OnStartButtonClickEvent;

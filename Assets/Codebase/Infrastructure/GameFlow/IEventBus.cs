@@ -5,14 +5,12 @@ namespace Codebase.Infrastructure.GameFlow
 {
     public interface IEventBus : IService
     {
-        event Action LevelLoadedEvent;
         event Action GamePlayStartEvent;
         event Action<string> LevelFinishedEvent;
-        event Action ReadyToGameEvent;
-
-        void BroadcastLevelLoaded();
+        event Action RespawnEvent;
+        
         void BroadcastGamePlayStart();
         void BroadcastLevelFinished(string winnerName);
-        void BroadcastReadyToGame();
+        void BroadcastRespawn();
     }
 }

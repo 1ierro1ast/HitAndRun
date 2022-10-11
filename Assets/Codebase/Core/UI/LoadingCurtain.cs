@@ -6,6 +6,7 @@ namespace Codebase.Core.UI
     public class LoadingCurtain : Popup
     {
         [SerializeField] private TMP_Text _winnerView;
+        
         private bool _showWinnerView;
 
         protected override void OnOpenPopup()

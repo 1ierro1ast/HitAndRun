@@ -47,7 +47,9 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   _tagSettings:
-    _taggedColor: {r: 0, g: 0.098634005, b: 1, a: 1}
+    _taggedColor:
+      serializedVersion: 2
+      rgba: 4294784037
     _taggedTime: 3
   _nameSettings:
     _maxPlayerNameLength: 14

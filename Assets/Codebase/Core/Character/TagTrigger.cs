@@ -1,27 +1,27 @@
 ﻿using Codebase.Core.Scores;
+using Mirror;
 using UnityEngine;
 
 namespace Codebase.Core.Character
 {
     [RequireComponent(typeof(CapsuleCollider))]
-    public class TagTrigger : MonoBehaviour
+    public class TagTrigger : NetworkBehaviour
     {
-        private ITagable _tagable;
+        private ICanBeingTagged _canBeingTagged;
         private ScoreCounter _scoreCounter;
 
         private void Awake()
         {
-            _tagable = GetComponent<ITagable>();
+            _canBeingTagged = GetComponent<ICanBeingTagged>();
             _scoreCounter = GetComponent<ScoreCounter>();
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!_scoreCounter.hasAuthority) return;
-            if (!_tagable.CanTag) return;
-            if (other.TryGetComponent(out ITagable tagable))
+            if (!_canBeingTagged.CanTag) return;
+            if (other.TryGetComponent(out ICanBeingTagged canBeingTagged))
             {
-                tagable.Tag(_scoreCounter.AddScore);
+                canBeingTagged.Tag(_scoreCounter.AddScore);
             }
         }
     }

@@ -23,15 +23,13 @@ namespace Codebase.Infrastructure.GameFlow
 
                 [typeof(MainMenuState)] = new MainMenuState(this, loadingCurtain, container.Single<IUiFactory>()),
 
-                [typeof(LobbyState)] = new LobbyState(this, container.Single<IUiFactory>(), loadingCurtain,
-                    container.Single<IEventBus>()),
+                [typeof(LobbyState)] = new LobbyState(this, container.Single<IUiFactory>(), loadingCurtain),
 
-                [typeof(GameplayState)] =
-                    new GameplayState(this, loadingCurtain, container.Single<IEventBus>(), coroutineRunner,
-                        container.Single<ILevelFactory>()),
+                [typeof(GameplayState)] = new GameplayState(this, loadingCurtain, container.Single<IEventBus>(),
+                    coroutineRunner, container.Single<ILevelFactory>()),
 
                 [typeof(MatchRestartState)] = new MatchRestartState(this, loadingCurtain,
-                    container.Single<IAssetProvider>(), coroutineRunner)
+                    container.Single<IAssetProvider>(), coroutineRunner, container.Single<IEventBus>())
             };
         }
     }

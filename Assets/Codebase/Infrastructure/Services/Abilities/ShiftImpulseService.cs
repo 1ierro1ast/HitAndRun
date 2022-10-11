@@ -47,9 +47,7 @@ namespace Codebase.Infrastructure.Services.Abilities
             characterController.enabled = true;
         }
 
-        private Vector3 GetShiftTargetPoint(Transform transform)
-        {
-            return transform.position + transform.forward * _shiftImpulseSettings.Distance;
-        }
+        private Vector3 GetShiftTargetPoint(Transform transform) =>
+            transform.position + transform.forward * _shiftImpulseSettings.Distance;
     }
 }

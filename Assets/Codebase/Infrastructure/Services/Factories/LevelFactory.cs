@@ -16,6 +16,7 @@ namespace Codebase.Infrastructure.Services.Factories
             _assetProvider = assetProvider;
             _spawnPointsStorage = spawnPointsStorage;
         }
+
         public Level GetLevel()
         {
             if (_currentLevel != null) Object.Destroy(_currentLevel.gameObject);

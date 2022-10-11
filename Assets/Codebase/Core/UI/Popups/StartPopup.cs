@@ -1,5 +1,4 @@
 ﻿using System;
-using Codebase.Infrastructure.GameFlow;
 using Codebase.Infrastructure.Services;
 using Codebase.Infrastructure.Services.NameSystem;
 using Mirror;
@@ -12,6 +11,7 @@ namespace Codebase.Core.UI.Popups
     public class StartPopup : Popup
     {
         public event Action StartButtonClickEvent;
+        
         [SerializeField] private Button _createRoomButton;
         [SerializeField] private Button _connectToRoomButton;
         [SerializeField] private TMP_InputField _nameField;
@@ -25,15 +25,26 @@ namespace Codebase.Core.UI.Popups
             base.OnInitialization();
             _nameService = AllServices.Container.Single<INameService>();
             OpenPopup();
+            
+            BindListeners();
+
+            LoadSettings();
+        }
+
+        private void BindListeners()
+        {
             _createRoomButton?.onClick.AddListener(OnCreateRoomButtonClick);
             _connectToRoomButton?.onClick.AddListener(OnConnectToRoomButtonClick);
             _serverAddress?.onValueChanged.AddListener(OnServerAddressValueChanged);
             _nameField?.onValueChanged.AddListener(OnNameValueChanged);
-            
+        }
+
+        private void LoadSettings()
+        {
             _nameField.text = _nameService.PlayerName;
             _nameField.characterLimit = _nameService.MaxPlayerNameLength;
         }
-        
+
         private void OnNameValueChanged(string name)
         {
             _nameService.SetPlayerName(name);
@@ -58,9 +69,7 @@ namespace Codebase.Core.UI.Popups
             StartButtonClickEvent?.Invoke();
         }
 
-        public void SetNetworkManager(NetworkManager networkManager)
-        {
-            _networkManager = networkManager;
-        }
+        public void SetNetworkManager(NetworkManager networkManager) => _networkManager = networkManager;
+        
     }
 }

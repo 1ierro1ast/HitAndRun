@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Codebase.Core.Character.States
 {
-    public class ShiftImpulseState : IState, ISupportTagState
+    public class ShiftImpulseState : IState
     {
         private readonly CharacterStateMachine _characterStateMachine;
         private readonly Transform _transform;
@@ -31,11 +31,6 @@ namespace Codebase.Core.Character.States
         private void OnImpulseFinishedCallback()
         {
             _characterStateMachine.Enter<RunState>();
-        }
-
-        public void Tag()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

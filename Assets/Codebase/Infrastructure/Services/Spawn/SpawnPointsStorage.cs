@@ -6,14 +6,8 @@ namespace Codebase.Infrastructure.Services.Spawn
     {
         private Transform[] _spawnPoints;
 
-        public void SetSpawnPoints(Transform[] currentLevelSpawnPoints)
-        {
-            _spawnPoints = currentLevelSpawnPoints;
-        }
+        public void SetSpawnPoints(Transform[] currentLevelSpawnPoints) => _spawnPoints = currentLevelSpawnPoints;
 
-        public Transform GetSpawnPoint()
-        {
-            return _spawnPoints[Random.Range(0, _spawnPoints.Length)];
-        }
+        public Transform GetSpawnPoint() => _spawnPoints[Random.Range(0, _spawnPoints.Length)];
     }
 }

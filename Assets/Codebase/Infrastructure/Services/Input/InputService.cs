@@ -30,8 +30,7 @@ namespace Codebase.Infrastructure.Services.Input
                 yield return new WaitForSeconds(UpdateTime);
             }
         }
-
-
+        
         private void HandleFireButton()
         {
             if(UnityEngine.Input.GetMouseButtonDown(0)) FireButtonEvent?.Invoke();
