@@ -4,22 +4,20 @@ using Codebase.Infrastructure.StateMachine;
 
 namespace Codebase.Infrastructure.GameFlow.States
 {
-    public class LoadLevelState : IPayloadedState<string>
+    public class LoadGameState : IPayloadedState<string>
     {
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
         private readonly INetworkFactory _networkFactory;
-        private readonly ILevelFactory _levelFactory;
 
-        public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain,
-            INetworkFactory networkFactory, ILevelFactory levelFactory)
+        public LoadGameState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain,
+            INetworkFactory networkFactory)
         {
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
             _networkFactory = networkFactory;
-            _levelFactory = levelFactory;
         }
 
         public void Enter(string sceneName)
@@ -35,7 +33,6 @@ namespace Codebase.Infrastructure.GameFlow.States
 
         private void OnLoaded()
         {
-            _levelFactory.GetLevel();
             _gameStateMachine.Enter<MainMenuState>();
         }
     }

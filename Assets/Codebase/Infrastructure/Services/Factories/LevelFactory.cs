@@ -18,7 +18,7 @@ namespace Codebase.Infrastructure.Services.Factories
         }
         public Level GetLevel()
         {
-            if (_currentLevel != null) Object.Destroy(_currentLevel);
+            if (_currentLevel != null) Object.Destroy(_currentLevel.gameObject);
             _currentLevel = _assetProvider.Instantiate<Level>(AssetPath.LevelPrefabPath);
             Object.DontDestroyOnLoad(_currentLevel.gameObject);
             _spawnPointsStorage.SetSpawnPoints(_currentLevel.SpawnPoints);

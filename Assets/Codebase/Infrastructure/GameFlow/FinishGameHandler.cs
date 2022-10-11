@@ -10,11 +10,13 @@ namespace Codebase.Infrastructure.GameFlow
     public class FinishGameHandler : IFinishGameHandler
     {
         private readonly INameService _nameService;
+        private readonly IEventBus _eventBus;
         private readonly GameplaySettings _gameplaySettings;
 
-        public FinishGameHandler(IAssetProvider assetProvider, INameService nameService)
+        public FinishGameHandler(IAssetProvider assetProvider, INameService nameService, IEventBus eventBus)
         {
             _nameService = nameService;
+            _eventBus = eventBus;
 
             _gameplaySettings = assetProvider.GetScriptableObject<GameSettings>(AssetPath.GameSettingsPath)
                 .GameplaySettings;
@@ -22,15 +24,15 @@ namespace Codebase.Infrastructure.GameFlow
 
         public void RegisterScoreCounter(IScoreCounter scoreCounter)
         {
-            scoreCounter.ScoreUpdated += ScoreCounter_OnScoreUpdated;
+            scoreCounter.ScoreUpdated += HandleScore;
         }
         
         public void DisposeScoreCounter(IScoreCounter scoreCounter)
         {
-            scoreCounter.ScoreUpdated -= ScoreCounter_OnScoreUpdated;
+            scoreCounter.ScoreUpdated -= HandleScore;
         }
 
-        private void ScoreCounter_OnScoreUpdated(int score)
+        public void HandleScore(int score)
         {
             if (score >= _gameplaySettings.GoalScore)
             {

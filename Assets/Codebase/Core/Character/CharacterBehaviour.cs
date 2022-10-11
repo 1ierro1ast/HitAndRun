@@ -29,6 +29,7 @@ namespace Codebase.Core.Character
             _characterStateMachine = new CharacterStateMachine(
                 _characterController, transform, AllServices.Container, this);
             _characterStateMachine.Enter<RunState>();
+            
         }
 
         public void Tag(Action callback)

@@ -8,7 +8,7 @@ namespace Codebase.Core.Scores
 {
     public class ScoreCounter : NetworkBehaviour, IScoreCounter
     {
-        [SyncVar(hook = nameof(SyncScores))] private int _syncScores;
+        [SyncVar(hook = nameof(SyncScores))] public int _syncScores;
         private int _scores;
         private IFinishGameHandler _finishGameHandler;
         public event Action<int> ScoreUpdated;
@@ -57,6 +57,7 @@ namespace Codebase.Core.Scores
             {
                 CmdChangeScores(_scores);
             }
+            
             ScoreUpdated?.Invoke(_scores);
         }
 
@@ -67,6 +68,20 @@ namespace Codebase.Core.Scores
             {
                 if(Input.GetKeyDown(KeyCode.J)) AddScore();
             }
+        }
+
+        public void CleanScores()
+        {
+            _scores = 0;
+            if (isServer)
+            {
+                ChangeScoresValue(_scores);
+            }
+            else
+            {
+                CmdChangeScores(_scores);
+            }
+            ScoreUpdated?.Invoke(_scores);
         }
     }
 }

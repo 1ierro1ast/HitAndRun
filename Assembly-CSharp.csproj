@@ -52,7 +52,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Codebase\Infrastructure\GameFlow\States\LoadLevelState.cs" />
+     <Compile Include="Assets\Codebase\Infrastructure\GameFlow\States\LoadGameState.cs" />
      <Compile Include="Assets\Codebase\Infrastructure\Services\SaveLoad\ISaveLoadService.cs" />
      <Compile Include="Assets\Codebase\Infrastructure\ICoroutineRunner.cs" />
      <Compile Include="Assets\Codebase\Infrastructure\GameFlow\States\MatchRestartState.cs" />
@@ -122,6 +122,9 @@
      <Compile Include="Assets\Codebase\Infrastructure\GameFlow\States\LobbyState.cs" />
      <Compile Include="Assets\Codebase\Core\UI\RoomNetworkUi.cs" />
      <Compile Include="Assets\Codebase\Core\Character\Cameras\CameraXAxisRotator.cs" />
+     <Compile Include="Assets\Codebase\Core\Networking\MatchRestart.cs" />
+     <Compile Include="Assets\Codebase\Core\Character\MatchRestartHandler.cs" />
+     <Compile Include="Assets\Codebase\Core\Networking\MatchStart.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\ScriptTemplates\51-Mirror__Network Authenticator-NewNetworkAuthenticator.cs.txt" />

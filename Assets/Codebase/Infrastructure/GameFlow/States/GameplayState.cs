@@ -1,6 +1,8 @@
 ﻿using System.Collections;
+using Codebase.Core.Character;
 using Codebase.Core.Networking;
 using Codebase.Core.UI;
+using Codebase.Infrastructure.Services.Factories;
 using Codebase.Infrastructure.StateMachine;
 using Mirror;
 using UnityEngine;
@@ -13,14 +15,16 @@ namespace Codebase.Infrastructure.GameFlow.States
         private readonly LoadingCurtain _loadingCurtain;
         private readonly IEventBus _eventBus;
         private readonly ICoroutineRunner _coroutineRunner;
+        private readonly ILevelFactory _levelFactory;
 
         public GameplayState(GameStateMachine gameStateMachine, LoadingCurtain loadingCurtain, IEventBus eventBus,
-            ICoroutineRunner coroutineRunner)
+            ICoroutineRunner coroutineRunner, ILevelFactory levelFactory)
         {
             _gameStateMachine = gameStateMachine;
             _loadingCurtain = loadingCurtain;
             _eventBus = eventBus;
             _coroutineRunner = coroutineRunner;
+            _levelFactory = levelFactory;
         }
 
         public void Exit()
@@ -29,22 +33,23 @@ namespace Codebase.Infrastructure.GameFlow.States
 
         public void Enter()
         {
+            _levelFactory.GetLevel();
             _coroutineRunner.StartCoroutine(StartGameplayCoroutine());
+            NetworkClient.RegisterHandler<MatchEnd>(EventBus_OnLevelFinishedEvent);
+        }
+
+        private void EventBus_OnLevelFinishedEvent(MatchEnd matchEnd)
+        {
+            _loadingCurtain.SetWinnerView(matchEnd.WinnerName);
+            _gameStateMachine.Enter<MatchRestartState>();
         }
 
         private IEnumerator StartGameplayCoroutine()
         {
             yield return new WaitForSeconds(0.25f);
-            NetworkClient.RegisterHandler<MatchEnd>(OnMatchEnd);
             _eventBus.BroadcastGamePlayStart();
             _loadingCurtain.ClosePopup();
         }
-
-        private void OnMatchEnd(MatchEnd message)
-        {
-            NetworkClient.UnregisterHandler<MatchEnd>();
-            _loadingCurtain.SetWinnerView(message.WinnerName);
-            _gameStateMachine.Enter<MatchRestartState>();
-        }
+        
     }
 }

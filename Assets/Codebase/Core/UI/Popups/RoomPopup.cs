@@ -31,14 +31,12 @@ namespace Codebase.Core.UI.Popups
 
         private void OnCancelReadyButtonClick()
         {
-            Debug.Log("cancel ready");
             ChangeLocalReadyStatus?.Invoke(false);
             SetReadyStatusButton(false);
         }
 
         private void OnReadyButtonClick()
         {
-            Debug.Log("is ready");
             ChangeLocalReadyStatus?.Invoke(true);
             SetReadyStatusButton(true);
         }

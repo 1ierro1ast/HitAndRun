@@ -18,14 +18,17 @@ namespace Codebase.Infrastructure.GameFlow
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, container, coroutineRunner),
 
-                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain,
-                    container.Single<INetworkFactory>(), container.Single<ILevelFactory>()),
+                [typeof(LoadGameState)] = new LoadGameState(this, sceneLoader, loadingCurtain,
+                    container.Single<INetworkFactory>()),
 
                 [typeof(MainMenuState)] = new MainMenuState(this, loadingCurtain, container.Single<IUiFactory>()),
-                [typeof(LobbyState)] = new LobbyState(this, container.Single<IUiFactory>(), loadingCurtain),
+
+                [typeof(LobbyState)] = new LobbyState(this, container.Single<IUiFactory>(), loadingCurtain,
+                    container.Single<IEventBus>()),
 
                 [typeof(GameplayState)] =
-                    new GameplayState(this, loadingCurtain, container.Single<IEventBus>(), coroutineRunner),
+                    new GameplayState(this, loadingCurtain, container.Single<IEventBus>(), coroutineRunner,
+                        container.Single<ILevelFactory>()),
 
                 [typeof(MatchRestartState)] = new MatchRestartState(this, loadingCurtain,
                     container.Single<IAssetProvider>(), coroutineRunner)

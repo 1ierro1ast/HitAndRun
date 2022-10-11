@@ -1,8 +1,13 @@
 ﻿using System.Collections;
+using Codebase.Core.Character;
+using Codebase.Core.Networking;
 using Codebase.Core.Settings;
 using Codebase.Core.UI;
 using Codebase.Infrastructure.Services.AssetManagement;
+using Codebase.Infrastructure.Services.Factories;
+using Codebase.Infrastructure.Services.Spawn;
 using Codebase.Infrastructure.StateMachine;
+using Mirror;
 using UnityEngine;
 
 namespace Codebase.Infrastructure.GameFlow.States
@@ -38,6 +43,7 @@ namespace Codebase.Infrastructure.GameFlow.States
         private IEnumerator MatchRespawnCoroutine()
         {
             yield return new WaitForSeconds(_gameplaySettings.MatchCooldown);
+            NetworkServer.SendToAll(new MatchRestart());
             _gameStateMachine.Enter<GameplayState>();
         }
     }

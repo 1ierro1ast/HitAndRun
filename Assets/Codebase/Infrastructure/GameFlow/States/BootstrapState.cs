@@ -39,7 +39,7 @@ namespace Codebase.Infrastructure.GameFlow.States
 
         private void EnterLoadLevel()
         {
-            _stateMachine.Enter<LoadLevelState, string>("MenuScene");
+            _stateMachine.Enter<LoadGameState, string>("MenuScene");
         }
 
         private void RegisterServices()
@@ -48,12 +48,12 @@ namespace Codebase.Infrastructure.GameFlow.States
             RegisterSaveLoadService();
 
             RegisterNameService();
-            RegisterFinishGameHandler();
             RegisterSpawnPointsStorage();
             RegisterLevelFactory();
             RegisterEventBus();
             RegisterInputService();
             RegisterNetworkFactory();
+            RegisterFinishGameHandler();
             RegisterUiFactory();
             RegisterShiftImpulseService();
         }
@@ -66,7 +66,7 @@ namespace Codebase.Infrastructure.GameFlow.States
         private void RegisterFinishGameHandler()
         {
             _services.RegisterSingle<IFinishGameHandler>(new FinishGameHandler(_services.Single<IAssetProvider>(),
-                _services.Single<INameService>()));
+                _services.Single<INameService>(), _services.Single<IEventBus>()));
         }
 
         private void RegisterLevelFactory()

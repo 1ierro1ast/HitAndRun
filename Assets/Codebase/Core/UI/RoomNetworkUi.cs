@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Codebase.Core.Networking;
+﻿using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
@@ -19,12 +17,12 @@ namespace Codebase.Core.UI
             _playerViews.Add(playerUi);
         }
 
-        public void UpdateViews(List<CustomNetworkRoomPlayer> networkRoomPlayers)
+        public void UpdateViews(List<NetworkRoomPlayer> networkRoomPlayers)
         {
             for (int i = 0; i < _playerViews.Count; i++)
             {
                 if(i+1 > networkRoomPlayers.Count) continue;
-                _playerViews[i].SetReadyStatus(networkRoomPlayers[i].IsReady);
+                _playerViews[i].SetReadyStatus(networkRoomPlayers[i].readyToBegin);
             }
         }
     }

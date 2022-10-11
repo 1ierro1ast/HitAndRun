@@ -127,5 +127,12 @@ namespace Codebase.Core.Character
             if (_characterController.isGrounded) return;
             _moveDirection.y -= _movementsSettings.Gravity * Time.deltaTime;
         }
+
+        public void MoveToSpawnPoint(Vector3 point)
+        {
+            _characterController.enabled = false;
+            transform.position = point;
+            _characterController.enabled = true;
+        }
     }
 }
