@@ -108,6 +108,7 @@
      <Compile Include="Assets\Codebase\Core\Character\AnimationsHandler.cs" />
      <Compile Include="Assets\Codebase\Core\UI\Popups\StartPopup.cs" />
      <Compile Include="Assets\Codebase\Core\Character\INameHolder.cs" />
+     <Compile Include="Assets\Codebase\Core\Character\WorldOutHandler.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\ScriptTemplates\51-Mirror__Network Authenticator-NewNetworkAuthenticator.cs.txt" />
